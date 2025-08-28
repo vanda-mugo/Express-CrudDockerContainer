@@ -2,11 +2,15 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import pool from "./config/db.js";
+import errorHandlingMiddleware from "./middlewares/errorHandler.js";
+
+import userRoutes from './routes/userRoutes.js';
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3001;
+
 //middleware
 
 app.use(express.json());
@@ -23,12 +27,11 @@ app.get("/", async (req, res) => {
   }
 });
 
-   
-
-// Routes 
+// Routes
+app.use('/api', userRoutes);
 
 // error handling
-
+app.use(errorHandlingMiddleware);
 
 //server running
 app.listen(port, () => {
