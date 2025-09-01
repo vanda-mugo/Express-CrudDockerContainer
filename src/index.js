@@ -5,6 +5,7 @@ import pool from "./config/db.js";
 import errorHandlingMiddleware from "./middlewares/errorHandler.js";
 
 import userRoutes from './routes/userRoutes.js';
+import createUserTable from "./data/createUserTable.js";
 
 dotenv.config();
 
@@ -26,6 +27,10 @@ app.get("/", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+//create table before starting server 
+
+createUserTable();
 
 // Routes
 app.use('/api', userRoutes);
